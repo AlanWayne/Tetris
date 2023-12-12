@@ -37,9 +37,12 @@ void new_block(Block* block) {
 //  block.c
 // =========
 
+void logic() {}
+
 void draw(int field[WIDTH][HEIGHT], Block block) {
 	for (int k = 0; k < HEIGHT; ++k) {
 		printf("#");
+
 		for (int i = 0; i < WIDTH; ++i) {
 			if ((i == block.x[0] && k == block.y[0]) ||
 				(i == block.x[1] && k == block.y[1]) ||
@@ -50,21 +53,23 @@ void draw(int field[WIDTH][HEIGHT], Block block) {
 				printf("__");
 			}
 		}
+
 		printf("#");
 		printf("\n");
 	}
 }
 
-int main() {
+void game() {
 	int field[WIDTH][HEIGHT] = {0};
 
 	Block block;
 	new_block(&block);
 
-
-	for (int i = 0; i < WIDTH; ++i) printf("#");
-
+	logic();
 	draw(field, block);
+}
 
+int main() {
+	game();
 	return 0;
 }
