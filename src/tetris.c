@@ -30,7 +30,7 @@ void movement(int *action, int field[WIDTH][HEIGHT], Block *block) {
 			collide = block_move(-1, 0, block, field);
 		if (*action == 'd' || *action == 'D')
 			collide = block_move(1, 0, block, field);
-		if (*action == 'w' || *action == 'W') block_rotate(block);
+		if (*action == 'w' || *action == 'W') block_rotate(block, field);
 	}
 
 	if (collide) collision(field, block);

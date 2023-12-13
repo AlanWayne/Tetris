@@ -27,109 +27,222 @@ int block_move(int x, int y, Block *block, int field[WIDTH][HEIGHT]) {
 	return 0;
 }
 
-void block_rotate(Block *block) {
+void block_rotate(Block *block, int field[WIDTH][HEIGHT]) {
+	int temp_x[4];
+	int temp_y[4];
+
+	for (int i = 0; i < 4; ++i) {
+		temp_x[i] = block->x[i];
+		temp_y[i] = block->y[i];
+	}
+
 	switch (block->type) {
 		case 1:
 			switch (block->state) {
 				case 0:
-					block->x[1] += 1;
-					block->y[1] += 1;
+					temp_x[1] += 1;
+					temp_y[1] += 1;
 					break;
 				case 1:
-					block->x[0] -= 1;
-					block->y[0] += 1;
+					temp_x[0] -= 1;
+					temp_y[0] += 1;
 					break;
 				case 2:
-					block->x[3] -= 1;
-					block->y[3] -= 1;
+					temp_x[3] -= 1;
+					temp_y[3] -= 1;
 					break;
 				case 3:
-					block->x[3] += 1;
-					block->y[3] += 1;
-					block->x[1] -= 1;
-					block->y[1] -= 1;
-					block->x[0] += 1;
-					block->y[0] -= 1;
+					temp_x[3] += 1;
+					temp_y[3] += 1;
+					temp_x[1] -= 1;
+					temp_y[1] -= 1;
+					temp_x[0] += 1;
+					temp_y[0] -= 1;
 					break;
 			}
 			break;
-
 		case 2:
 			switch (block->state) {
 				case 0:
-					block->x[0] += 2;
-					block->y[0] -= 1;
-					block->x[1] += 1;
-					block->y[2] += 1;
-					block->x[3] -= 1;
-					block->y[3] += 2;
+					temp_x[0] += 2;
+					temp_y[0] -= 1;
+					temp_x[1] += 1;
+					temp_y[2] += 1;
+					temp_x[3] -= 1;
+					temp_y[3] += 2;
 					break;
 				case 1:
-					block->x[0] += 1;
-					block->y[0] += 2;
-					block->y[1] += 1;
-					block->x[2] -= 1;
-					block->x[3] -= 2;
-					block->y[3] -= 1;
+					temp_x[0] += 1;
+					temp_y[0] += 2;
+					temp_y[1] += 1;
+					temp_x[2] -= 1;
+					temp_x[3] -= 2;
+					temp_y[3] -= 1;
 					break;
 				case 2:
-					block->x[0] -= 2;
-					block->y[0] += 1;
-					block->x[1] -= 1;
-					block->y[2] -= 1;
-					block->x[3] += 1;
-					block->y[3] -= 2;
+					temp_x[0] -= 2;
+					temp_y[0] += 1;
+					temp_x[1] -= 1;
+					temp_y[2] -= 1;
+					temp_x[3] += 1;
+					temp_y[3] -= 2;
 					break;
 				case 3:
-					block->x[0] -= 1;
-					block->y[0] -= 2;
-					block->y[1] -= 1;
-					block->x[2] += 1;
-					block->x[3] += 2;
-					block->y[3] += 1;
+					temp_x[0] -= 1;
+					temp_y[0] -= 2;
+					temp_y[1] -= 1;
+					temp_x[2] += 1;
+					temp_x[3] += 2;
+					temp_y[3] += 1;
 					break;
 			}
 			break;
-
 		case 3:
 			switch (block->state) {
 				case 0:
+					temp_x[0] += 2;
+					temp_x[1] += 1;
+					temp_y[1] -= 1;
+					temp_x[3] -= 1;
+					temp_y[3] += 1;
+					break;
 				case 1:
+					temp_y[0] += 2;
+					temp_x[1] += 1;
+					temp_y[1] += 1;
+					temp_x[3] -= 1;
+					temp_y[3] -= 1;
+					break;
 				case 2:
+					temp_x[0] -= 2;
+					temp_x[1] -= 1;
+					temp_y[1] += 1;
+					temp_x[3] += 1;
+					temp_y[3] -= 1;
+					break;
 				case 3:
+					temp_y[0] -= 2;
+					temp_x[1] -= 1;
+					temp_y[1] -= 1;
+					temp_x[3] += 1;
+					temp_y[3] += 1;
+					break;
 			}
 			break;
-
 		case 4:
 			switch (block->state) {
 				case 0:
+					temp_y[0] += 2;
+					temp_x[1] += 1;
+					temp_y[1] -= 1;
+					temp_x[3] -= 1;
+					temp_y[3] += 1;
+					break;
 				case 1:
+					temp_x[0] -= 2;
+					temp_x[1] += 1;
+					temp_y[1] += 1;
+					temp_x[3] -= 1;
+					temp_y[3] -= 1;
+					break;
 				case 2:
+					temp_y[0] -= 2;
+					temp_x[1] -= 1;
+					temp_y[1] += 1;
+					temp_x[3] += 1;
+					temp_y[3] -= 1;
+					break;
 				case 3:
+					temp_x[0] += 2;
+					temp_x[1] -= 1;
+					temp_y[1] -= 1;
+					temp_x[3] += 1;
+					temp_y[3] += 1;
+					break;
 			}
 			break;
-
 		case 5:
 			switch (block->state) {
 				case 0:
+					temp_x[0] += 2;
+					temp_x[1] += 1;
+					temp_y[1] += 1;
+					temp_x[3] -= 1;
+					temp_y[3] += 1;
+					break;
 				case 1:
+					temp_y[0] += 2;
+					temp_x[1] -= 1;
+					temp_y[1] += 1;
+					temp_x[3] -= 1;
+					temp_y[3] -= 1;
+					break;
 				case 2:
+					temp_x[0] -= 2;
+					temp_x[1] -= 1;
+					temp_y[1] -= 1;
+					temp_x[3] += 1;
+					temp_y[3] -= 1;
+					break;
 				case 3:
+					temp_y[0] -= 2;
+					temp_x[1] += 1;
+					temp_y[1] -= 1;
+					temp_x[3] += 1;
+					temp_y[3] += 1;
+					break;
 			}
 			break;
-
 		case 6:
 			switch (block->state) {
 				case 0:
+					temp_x[0] += 1;
+					temp_y[0] += 1;
+					temp_y[1] += 2;
+					temp_x[2] += 1;
+					temp_y[2] -= 1;
+					break;
 				case 1:
+					temp_x[0] -= 1;
+					temp_y[0] += 1;
+					temp_x[1] -= 2;
+					temp_x[2] += 1;
+					temp_y[2] += 1;
+					break;
 				case 2:
+					temp_x[0] -= 1;
+					temp_y[0] -= 1;
+					temp_y[1] -= 2;
+					temp_x[2] -= 1;
+					temp_y[2] += 1;
+					break;
 				case 3:
+					temp_x[0] += 1;
+					temp_y[0] -= 1;
+					temp_x[1] += 2;
+					temp_x[2] -= 1;
+					temp_y[2] -= 1;
+					break;
 			}
 			break;
 	}
 
-	block->state += 1;
-	if (block->state > 3) block->state = 0;
+	int collide = 0;
+	for (int i = 0; i < 4 && !collide; ++i) {
+		if (temp_x[i] < 0 || temp_x[i] >= WIDTH || temp_y[i] >= HEIGHT ||
+			field[temp_x[i]][temp_y[i]]) {
+			collide = 1;
+		}
+	}
+
+	if (!collide) {
+		for (int i = 0; i < 4; ++i) {
+			block->x[i] = temp_x[i];
+			block->y[i] = temp_y[i];
+		}
+		block->state += 1;
+		if (block->state > 3) block->state = 0;
+	}
 }
 
 void block_new(Block *block) {
@@ -223,10 +336,10 @@ void block_new(Block *block) {
 
 		//  S-shape
 		case 6:
-			block->x[0] = (WIDTH - 1) / 2 + 1;
-			block->x[1] = (WIDTH - 1) / 2;
-			block->x[2] = (WIDTH - 1) / 2;
-			block->x[3] = (WIDTH - 1) / 2 - 1;
+			block->x[0] = (WIDTH - 1) / 2;
+			block->x[1] = (WIDTH - 1) / 2 + 1;
+			block->x[2] = (WIDTH - 1) / 2 - 1;
+			block->x[3] = (WIDTH - 1) / 2;
 
 			block->y[0] = 0;
 			block->y[1] = 0;
