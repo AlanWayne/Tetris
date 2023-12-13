@@ -40,24 +40,36 @@ void block_rotate(Block *block, int field[WIDTH][HEIGHT]) {
 		case 1:
 			switch (block->state) {
 				case 0:
+					temp_x[0] += 1;
+					temp_y[0] += 1;
 					temp_x[1] += 1;
-					temp_y[1] += 1;
+					temp_y[1] -= 1;
+					temp_x[3] -= 1;
+					temp_y[3] += 1;
 					break;
 				case 1:
 					temp_x[0] -= 1;
 					temp_y[0] += 1;
-					break;
-				case 2:
+					temp_x[1] += 1;
+					temp_y[1] += 1;
 					temp_x[3] -= 1;
 					temp_y[3] -= 1;
 					break;
-				case 3:
-					temp_x[3] += 1;
-					temp_y[3] += 1;
+				case 2:
+					temp_x[0] -= 1;
+					temp_y[0] -= 1;
 					temp_x[1] -= 1;
-					temp_y[1] -= 1;
+					temp_y[1] += 1;
+					temp_x[3] += 1;
+					temp_y[3] -= 1;
+					break;
+				case 3:
 					temp_x[0] += 1;
 					temp_y[0] -= 1;
+					temp_x[1] -= 1;
+					temp_y[1] -= 1;
+					temp_x[3] += 1;
+					temp_y[3] += 1;
 					break;
 			}
 			break;
