@@ -1,16 +1,18 @@
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
+LIB_FLAGS = -lncurses -ltinfo
+O_FILES = main.o game.o block.o
+NAME = tetris
 
-all: clang tetris
+all: clang $(NAME)
 
 rebuild: clean all
 
 clean:
-	rm -rf tetris *.o
+	rm -rf $(NAME) *.o
 
-tetris: main.o
-	$(CC) $(FLAGS) main.o -o tetris
-	./tetris
+tetris: $(O_FILES)
+	$(CC) $(FLAGS) $(O_FILES) -o $(NAME) $(LIB_FLAGS)
 
 clang:
 	cp ../materials/linters/.clang-format .clang-format
