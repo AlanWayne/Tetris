@@ -6,6 +6,8 @@ typedef struct {
 	int y[4];
 } Block;
 
+#include <stdlib.h>
+
 #define WIDTH 10
 #define HEIGHT 20
 

@@ -1,8 +1,11 @@
 #ifndef TETRIS_H
 #define TETRIS_H
 
+#include <math.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
+#include <time.h>
 
 #include "block.h"
 

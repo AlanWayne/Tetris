@@ -57,7 +57,57 @@ void draw(int field[WIDTH][HEIGHT], Block block) {
 	}
 }
 
+void draw_score(int score) {
+	char str[25];
+	sprintf(str, "\nScore: %*d\n", 2 * WIDTH - 5, score);
+	write(STDIN_FILENO, str, 25);
+}
+
+void check_lines(int field[WIDTH][HEIGHT], int *score) {
+	int line_number[4] = {0};
+	int line = 0;
+
+	for (int k = 0; k < HEIGHT; ++k) {
+		int sum = 0;
+
+		for (int i = 0; i < WIDTH; ++i) {
+			sum += field[i][k];
+		}
+
+		if (sum == WIDTH) {
+			line_number[line] = k;
+			line += 1;
+		}
+	}
+
+	for (int l = line - 1; l >= 0; --l) {
+		for (int i = 0; i < WIDTH; ++i) {
+			field[i][line_number[line - 1]] = 0;
+		}
+
+		for (int k = line_number[l]; k > 0; --k) {
+			for (int i = 0; i < WIDTH; ++i) {
+				field[i][k] = field[i][k - 1];
+			}
+		}
+
+		for (int i = 0; i < WIDTH; ++i) {
+			field[i][0] = 0;
+		}
+
+		for (int i = 0; i < l; ++i) {
+			line_number[i] += 1;
+		}
+	}
+
+	*score += pow(2, line) - 1;
+}
+
 void tetris() {
+	srand(time(NULL));
+
+	int score = 0;
+
 	int field[WIDTH][HEIGHT] = {0};
 	int action = 0;
 
@@ -67,8 +117,11 @@ void tetris() {
 	while (action != 'q') {
 		action = 0;
 
+		check_lines(field, &score);
 		movement(&action, field, &block);
+
 		draw(field, block);
+		draw_score(score);
 
 		usleep(FPS);
 	}
