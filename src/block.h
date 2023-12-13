@@ -4,6 +4,8 @@
 typedef struct {
 	int x[4];
 	int y[4];
+	int type;
+	int state;
 } Block;
 
 #include <stdlib.h>
