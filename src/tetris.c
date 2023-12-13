@@ -1,22 +1,39 @@
-#include "game.h"
+#include "tetris.h"
 
-void logic(int *action, Block *block) {
+void collision(int field[WIDTH][HEIGHT], Block *block) {
+	for (int i = 0; i < 4; ++i) {
+		int temp_x = block->x[i];
+		int temp_y = block->y[i];
+
+		field[temp_x][temp_y] = 1;
+	}
+
+	block_new(block);
+}
+
+void movement(int *action, int field[WIDTH][HEIGHT], Block *block) {
 	static int time_count = 0;
 	int time_speed = 30;
+	int collide = 0;
 
 	if (time_count >= time_speed) {
-		block_move(0, 1, block);
+		collide = block_move(0, 1, block, field);
 		time_count = 0;
 	} else {
 		time_count += 1;
 	}
 
-	if (read(STDIN_FILENO, action, 4) == 1) {
-		if (*action == 's' || *action == 'S') block_move(0, 1, block);
-		if (*action == 'a' || *action == 'A') block_move(-1, 0, block);
-		if (*action == 'd' || *action == 'D') block_move(1, 0, block);
+	if (!collide && read(STDIN_FILENO, action, 4) == 1) {
+		if (*action == 's' || *action == 'S')
+			collide = block_move(0, 1, block, field);
+		if (*action == 'a' || *action == 'A')
+			collide = block_move(-1, 0, block, field);
+		if (*action == 'd' || *action == 'D')
+			collide = block_move(1, 0, block, field);
 		if (*action == 'w' || *action == 'W') block_rotate(block);
 	}
+
+	if (collide) collision(field, block);
 }
 
 void draw(int field[WIDTH][HEIGHT], Block block) {
@@ -40,7 +57,7 @@ void draw(int field[WIDTH][HEIGHT], Block block) {
 	}
 }
 
-void game() {
+void tetris() {
 	int field[WIDTH][HEIGHT] = {0};
 	int action = 0;
 
@@ -50,7 +67,7 @@ void game() {
 	while (action != 'q') {
 		action = 0;
 
-		logic(&action, &block);
+		movement(&action, field, &block);
 		draw(field, block);
 
 		usleep(FPS);

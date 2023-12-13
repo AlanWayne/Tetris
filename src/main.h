@@ -4,6 +4,6 @@
 #include <fcntl.h>
 #include <termios.h>
 
-#include "game.h"
+#include "tetris.h"
 
 #endif

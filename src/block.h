@@ -9,7 +9,7 @@ typedef struct {
 #define WIDTH 10
 #define HEIGHT 20
 
-void block_move(int x, int y, Block *block);
+int block_move(int x, int y, Block *block, int field[WIDTH][HEIGHT]);
 void block_rotate(Block *block);
 void block_new(Block *block);
 
