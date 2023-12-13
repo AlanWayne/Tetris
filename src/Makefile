@@ -1,7 +1,7 @@
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
 LIB_FLAGS = -lm
-O_FILES = main.o tetris.o block.o
+O_FILES = main.o tetris.o block.o conf.o
 NAME = tetris
 
 all: clang $(NAME)
