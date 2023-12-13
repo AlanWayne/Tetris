@@ -258,7 +258,11 @@ void block_rotate(Block *block, int field[WIDTH][HEIGHT]) {
 }
 
 void block_new(Block *block) {
-	block->type = rand() % 7;
+	if (block->type_next == -1) block->type_next = rand() % 7;
+
+	block->type = block->type_next;
+	block->type_next = rand() % 7;
+
 	block->state = 0;
 
 	switch (block->type) {

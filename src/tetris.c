@@ -37,29 +37,37 @@ void movement(int *action, int field[WIDTH][HEIGHT], Block *block) {
 }
 
 void draw(int field[WIDTH][HEIGHT], Block block) {
+	char spr_wall[] = "#";
+	char spr_block[] = "[]";
+	char spr_empty[] = "__";
+
 	write(STDIN_FILENO, "\033[2J", 4);
 	write(STDIN_FILENO, "\033[H", 4);
 
 	for (int k = 0; k < HEIGHT; ++k) {
-		write(STDIN_FILENO, "#", 1);
+		write(STDIN_FILENO, spr_wall, strlen(spr_wall));
 
 		for (int i = 0; i < WIDTH; ++i) {
 			if ((i == block.x[0] && k == block.y[0]) ||
 				(i == block.x[1] && k == block.y[1]) ||
 				(i == block.x[2] && k == block.y[2]) ||
 				(i == block.x[3] && k == block.y[3]) || field[i][k]) {
-				write(STDIN_FILENO, "[]", 2);
+				write(STDIN_FILENO, spr_block, strlen(spr_block));
 			} else {
-				write(STDIN_FILENO, "__", 2);
+				write(STDIN_FILENO, spr_empty, strlen(spr_empty));
 			}
 		}
-		write(STDIN_FILENO, "#\n", 2);
+
+		write(STDIN_FILENO, spr_wall, strlen(spr_wall));
+		write(STDIN_FILENO, "\n", 1);
 	}
 }
 
-void draw_score(int score) {
+void draw_score(int score, int record) {
 	char str[25];
-	sprintf(str, "\nScore: %*d\n", 2 * WIDTH - 5, score);
+	sprintf(str, "\nScore: %*d", 2 * WIDTH - 5, score);
+	write(STDIN_FILENO, str, 25);
+	sprintf(str, "\nRecord: %*d\n", 2 * WIDTH - 6, record);
 	write(STDIN_FILENO, str, 25);
 }
 
@@ -103,7 +111,28 @@ void check_lines(int field[WIDTH][HEIGHT], int *score) {
 	*score += pow(2, line) - 1;
 }
 
-void tetris() {
+int check_game_over(int field[WIDTH][HEIGHT]) {
+	for (int i = 0; i < WIDTH; ++i) {
+		if (field[i][0]) return 1;
+	}
+	return 0;
+}
+
+void save_result(int score) {
+	write(STDIN_FILENO, "\033[2J", 4);
+	write(STDIN_FILENO, "\033[H", 4);
+
+	char buff[50];
+	FILE *file = fopen("txt/message_1.txt", "r");
+
+	while (fgets(buff, 50, file) != NULL) {
+		write(STDIN_FILENO, buff, strlen(buff));
+	}
+
+	fclose(file);
+}
+
+int tetris(int record) {
 	srand(time(NULL));
 
 	int score = 0;
@@ -111,18 +140,27 @@ void tetris() {
 	int field[WIDTH][HEIGHT] = {0};
 	int action = 0;
 
-	Block block;
+	int game_over = 0;
+
+	Block block = {-1};
 	block_new(&block);
 
-	while (action != 'q') {
+	while (action != 'q' && !game_over) {
 		action = 0;
 
 		check_lines(field, &score);
+		game_over = check_game_over(field);
 		movement(&action, field, &block);
 
 		draw(field, block);
-		draw_score(score);
+		draw_score(score, record);
 
 		usleep(FPS);
 	}
+
+	if (game_over) {
+		save_result(score);
+	}
+
+	return score;
 }

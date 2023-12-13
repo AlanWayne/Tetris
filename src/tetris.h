@@ -14,6 +14,6 @@
 void collision(int field[WIDTH][HEIGHT], Block* block);
 void movement(int *action, int field[WIDTH][HEIGHT], Block *block);
 void draw(int field[WIDTH][HEIGHT], Block block);
-void tetris();
+int tetris(int record);
 
 #endif

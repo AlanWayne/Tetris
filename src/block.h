@@ -5,6 +5,7 @@ typedef struct {
 	int x[4];
 	int y[4];
 	int type;
+	int type_next;
 	int state;
 } Block;
 
