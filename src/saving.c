@@ -1,35 +1,29 @@
 #include "saving.h"
 
-int check_record() {
-	int record = 0;
+void check_record(Data* data) {
+	Data temp;
+	FILE* file = fopen("tetris.bin", "rb");
 
-	FILE* file = fopen("Tetris_save/record", "r");
 	if (file != NULL) {
-		char buff[4];
-		fgets(buff, 4, file);
-		sscanf(buff, "%d", &record);
+		fread(&temp, sizeof(temp), 1, file);
+		data->record = temp.record;
+		strcpy(data->name, temp.name);
 		fclose(file);
+	} else {
+		data->record = 0;
 	}
-
-	return record;
+	data->score = 0;
 }
 
-int new_record(int score, int record) {
-	printf("Your score: %d\n\n", score);
+void new_record(Data* data) {
+	if (data->score > data->record) {
+		data->record = data->score;
+		FILE* file = fopen("tetris.bin", "wb");
 
-	if (score > record) {
-		char buff[8];
-		system("mkdir -p Tetris_save");
-		FILE* file = fopen("Tetris_save/record", "w");
 		if (file != NULL) {
-			sprintf(buff, "%d", score);
-			fputs(buff, file);
+			fwrite(data, sizeof(data), 1, file);
 			fclose(file);
 			printf("New record saved!\n");
-		} else {
-			printf("Aa");
 		}
 	}
-
-	return 0;
 }

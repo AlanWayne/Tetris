@@ -9,12 +9,12 @@ all: clang $(NAME)
 rebuild: clean all
 
 clean:
-	rm -rf $(NAME) *.o Tetris_save
+	rm -rf $(NAME) *.o *.bin
 
 tetris: $(O_FILES)
 	$(CC) $(FLAGS) $(O_FILES) -o $(NAME) $(LIB_FLAGS)
 
 clang:
 	cp ../materials/linters/.clang-format .clang-format
-	clang-format -i *.c
+	clang-format -i *.c *.h
 	rm -rf .clang-format

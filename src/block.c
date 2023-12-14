@@ -1,6 +1,6 @@
 #include "block.h"
 
-int block_move(int x, int y, Block *block, int field[WIDTH][HEIGHT]) {
+int block_move(int x, int y, Block *block) {
 	int collide = 0;
 	for (int i = 0; i < 4 && !collide; ++i) {
 		int temp_x = block->x[i] + x;
@@ -10,9 +10,9 @@ int block_move(int x, int y, Block *block, int field[WIDTH][HEIGHT]) {
 			return 1;
 		} else if (x && (temp_x < 0 || temp_x >= WIDTH)) {
 			collide = 1;
-		} else if (y && field[temp_x][temp_y]) {
+		} else if (y && block->field[temp_x][temp_y]) {
 			return 1;
-		} else if (x && field[temp_x][temp_y]) {
+		} else if (x && block->field[temp_x][temp_y]) {
 			collide = 1;
 		}
 	}
@@ -27,7 +27,7 @@ int block_move(int x, int y, Block *block, int field[WIDTH][HEIGHT]) {
 	return 0;
 }
 
-void block_rotate(Block *block, int field[WIDTH][HEIGHT]) {
+void block_rotate(Block *block) {
 	int temp_x[4];
 	int temp_y[4];
 
@@ -242,7 +242,7 @@ void block_rotate(Block *block, int field[WIDTH][HEIGHT]) {
 	int collide = 0;
 	for (int i = 0; i < 4 && !collide; ++i) {
 		if (temp_x[i] < 0 || temp_x[i] >= WIDTH || temp_y[i] >= HEIGHT ||
-			field[temp_x[i]][temp_y[i]]) {
+			block->field[temp_x[i]][temp_y[i]]) {
 			collide = 1;
 		}
 	}

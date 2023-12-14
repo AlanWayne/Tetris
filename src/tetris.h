@@ -2,18 +2,18 @@
 #define TETRIS_H
 
 #include <math.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
 #include "block.h"
 
 #define FPS 1000000 / 30
 
-void collision(int field[WIDTH][HEIGHT], Block* block);
-void movement(int *action, int field[WIDTH][HEIGHT], Block *block);
-void draw(int field[WIDTH][HEIGHT], Block block);
-int tetris(int record);
+void collision(Block *block);
+void movement(int *action, Block *block);
+void draw(Block *block);
+void tetris(Data *data);
 
 #endif

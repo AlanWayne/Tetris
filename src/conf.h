@@ -2,8 +2,8 @@
 #define CONF_H
 
 #include <fcntl.h>
-#include <unistd.h>
 #include <termios.h>
+#include <unistd.h>
 
 void conf_terminal(int arg);
 

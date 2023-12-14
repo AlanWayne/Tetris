@@ -1,14 +1,14 @@
 #include "main.h"
 
 int main() {
+	Data data;
+	check_record(&data);
+
 	conf_terminal(1);
-
-	int record = check_record();
-	int score = tetris(record);
-
+	tetris(&data);
 	conf_terminal(0);
 
-	new_record(score, record);
+	new_record(&data);
 
 	return 0;
 }
