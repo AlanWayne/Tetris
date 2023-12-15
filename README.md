@@ -24,3 +24,7 @@ Classic game with ascii graphic.
     ▒▒▓▓▓▓▓▓▓▓░░░░░░▓▓░░░░▒▒
     ▒▒▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓░░▓▓▒▒
     ```
+
+- To do:
+    - Colors
+    - Name of the bearer of the record
