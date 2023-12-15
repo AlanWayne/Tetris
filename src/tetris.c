@@ -74,11 +74,11 @@ void draw(Block *block) {
 }
 
 void draw_score(Data *data) {
-	char str[25];
-	sprintf(str, "\nScore: %*d", 2 * WIDTH - 5, data->score);
-	write(STDIN_FILENO, str, 25);
-	sprintf(str, "\nRecord: %*d\n", 2 * WIDTH - 6, data->record);
-	write(STDIN_FILENO, str, 25);
+	char str[27];
+	sprintf(str, "\nScore: %*d", 2 * WIDTH - 3, data->score);
+	write(STDIN_FILENO, str, 27);
+	sprintf(str, "\nRecord: %*d\n", 2 * WIDTH - 4, data->record);
+	write(STDIN_FILENO, str, 27);
 }
 
 void check_lines(Block *block, Data *data) {
