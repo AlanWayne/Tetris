@@ -15,7 +15,7 @@
 
 void collision(Block *block);
 void movement(int *action, Block *block);
-void draw(Block *block);
+void draw(Data *data, Block *block);
 void tetris(Data *data);
 
 #endif

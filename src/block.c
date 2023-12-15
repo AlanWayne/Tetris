@@ -258,8 +258,6 @@ void block_rotate(Block *block) {
 }
 
 void block_new(Block *block) {
-	if (block->type_next == -1) block->type_next = rand() % 7;
-
 	block->type = block->type_next;
 	block->type_next = rand() % 7;
 
@@ -363,5 +361,110 @@ void block_new(Block *block) {
 			block->y[3] = 1;
 
 			break;
+	}
+
+	switch (block->type_next) {
+		// O-shape
+		case 0:
+			block->x_next[0] = (WIDTH - 1) / 2;
+			block->x_next[1] = (WIDTH - 1) / 2 + 1;
+			block->x_next[2] = (WIDTH - 1) / 2;
+			block->x_next[3] = (WIDTH - 1) / 2 + 1;
+
+			block->y_next[0] = 0;
+			block->y_next[1] = 0;
+			block->y_next[2] = 1;
+			block->y_next[3] = 1;
+
+			break;
+
+		// T-shape
+		case 1:
+			block->x_next[0] = (WIDTH - 1) / 2;
+			block->x_next[1] = (WIDTH - 1) / 2 - 1;
+			block->x_next[2] = (WIDTH - 1) / 2;
+			block->x_next[3] = (WIDTH - 1) / 2 + 1;
+
+			block->y_next[0] = 0;
+			block->y_next[1] = 1;
+			block->y_next[2] = 1;
+			block->y_next[3] = 1;
+
+			break;
+
+		// I-shape
+		case 2:
+			block->x_next[0] = (WIDTH - 1) / 2 - 1;
+			block->x_next[1] = (WIDTH - 1) / 2;
+			block->x_next[2] = (WIDTH - 1) / 2 + 1;
+			block->x_next[3] = (WIDTH - 1) / 2 + 2;
+
+			block->y_next[0] = 0;
+			block->y_next[1] = 0;
+			block->y_next[2] = 0;
+			block->y_next[3] = 0;
+
+			break;
+
+		// J-shape
+		case 3:
+			block->x_next[0] = (WIDTH - 1) / 2 - 1;
+			block->x_next[1] = (WIDTH - 1) / 2 - 1;
+			block->x_next[2] = (WIDTH - 1) / 2;
+			block->x_next[3] = (WIDTH - 1) / 2 + 1;
+
+			block->y_next[0] = 0;
+			block->y_next[1] = 1;
+			block->y_next[2] = 1;
+			block->y_next[3] = 1;
+
+			break;
+
+		// L-shape
+		case 4:
+			block->x_next[0] = (WIDTH - 1) / 2 + 1;
+			block->x_next[1] = (WIDTH - 1) / 2 - 1;
+			block->x_next[2] = (WIDTH - 1) / 2;
+			block->x_next[3] = (WIDTH - 1) / 2 + 1;
+
+			block->y_next[0] = 0;
+			block->y_next[1] = 1;
+			block->y_next[2] = 1;
+			block->y_next[3] = 1;
+
+			break;
+
+		// Z-shape
+		case 5:
+			block->x_next[0] = (WIDTH - 1) / 2 - 1;
+			block->x_next[1] = (WIDTH - 1) / 2;
+			block->x_next[2] = (WIDTH - 1) / 2;
+			block->x_next[3] = (WIDTH - 1) / 2 + 1;
+
+			block->y_next[0] = 0;
+			block->y_next[1] = 0;
+			block->y_next[2] = 1;
+			block->y_next[3] = 1;
+
+			break;
+
+		//  S-shape
+		case 6:
+			block->x_next[0] = (WIDTH - 1) / 2;
+			block->x_next[1] = (WIDTH - 1) / 2 + 1;
+			block->x_next[2] = (WIDTH - 1) / 2 - 1;
+			block->x_next[3] = (WIDTH - 1) / 2;
+
+			block->y_next[0] = 0;
+			block->y_next[1] = 0;
+			block->y_next[2] = 1;
+			block->y_next[3] = 1;
+
+			break;
+	}
+
+	for (int i = 0; i < 4; ++i) {
+		block->x_next[i] += WIDTH + 2;
+		block->y_next[i] += 6;
 	}
 }

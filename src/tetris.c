@@ -34,7 +34,7 @@ void movement(int *action, Block *block) {
 	if (collide) collision(block);
 }
 
-void draw(Block *block) {
+void draw(Data *data, Block *block) {
 	setlocale(LC_CTYPE, "");
 
 	wchar_t spr_wall[] = L"▒▒";
@@ -69,16 +69,38 @@ void draw(Block *block) {
 		}
 
 		write(STDIN_FILENO, spr_wall_sub, spr_wall_len);
+
+		if (k == 6 || k == 7) {
+			write(STDIN_FILENO, "  ", 2);
+		}
+
+		for (int i = 0; i < WIDTH; ++i) {
+			if ((i + 2 + WIDTH == block->x_next[0] && k == block->y_next[0]) ||
+				(i + 2 + WIDTH == block->x_next[1] && k == block->y_next[1]) ||
+				(i + 2 + WIDTH == block->x_next[2] && k == block->y_next[2]) ||
+				(i + 2 + WIDTH == block->x_next[3] && k == block->y_next[3])) {
+				write(STDIN_FILENO, spr_block_sub, spr_block_len);
+			}
+		}
+
+		if (k == 0) {
+			char str[27];
+			sprintf(str, "  Record: %5d", data->record);
+			write(STDIN_FILENO, str, 15);
+		}
+		if (k == 2) {
+			char str[32];
+			sprintf(str, "  Score: %6d", data->score);
+			write(STDIN_FILENO, str, 15);
+		}
+		if (k == 4) {
+			char str[27];
+			sprintf(str, "  Next:");
+			write(STDIN_FILENO, str, 8);
+		}
+
 		write(STDIN_FILENO, "\n", 1);
 	}
-}
-
-void draw_score(Data *data) {
-	char str[27];
-	sprintf(str, "\nScore: %*d", 2 * WIDTH - 3, data->score);
-	write(STDIN_FILENO, str, 27);
-	sprintf(str, "\nRecord: %*d\n", 2 * WIDTH - 4, data->record);
-	write(STDIN_FILENO, str, 27);
 }
 
 void check_lines(Block *block, Data *data) {
@@ -149,7 +171,9 @@ void tetris(Data *data) {
 
 	int game_over = 0;
 
-	Block block = {-1};
+	Block block = {0};
+	block.type_next = rand() % 7;
+
 	block_new(&block);
 
 	while (action != 'q' && !game_over) {
@@ -159,8 +183,7 @@ void tetris(Data *data) {
 		game_over = check_game_over(&block);
 		movement(&action, &block);
 
-		draw(&block);
-		draw_score(data);
+		draw(data, &block);
 
 		usleep(FPS);
 	}
