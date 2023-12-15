@@ -21,7 +21,7 @@ clang:
 	clang-format -i *.c *.h
 	rm -rf .clang-format
 
-git:
+git: 
 	git add ../.
 	git commit -m'$(comment)'
 	git push origin develop
