@@ -3,9 +3,9 @@ Classic game with ascii graphic.
 
 - Gameplay appearance:<br>
     - Screenshot:<br>
-    <img src="./materials/images/gameplay_appearance.jpg" alt="part2_1" width="512"/><br>
+    <img src="./materials/images/gameplay_appearance.jpg" alt="part2_1" width="256"/><br>
 
-    - Unicode:
+    - Unicode:<br>
     ▒▒░░░░░░░░░░░░░░░░░░░░▒▒<br>
     ▒▒░░░░░░░░░░░░░░░░░░░░▒▒<br>
     ▒▒░░░░░░░░░░░░░░░░░░░░▒▒<br>
