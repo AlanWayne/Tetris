@@ -35,28 +35,40 @@ void movement(int *action, Block *block) {
 }
 
 void draw(Block *block) {
-	char spr_wall[] = "#";
-	char spr_block[] = "[]";
-	char spr_empty[] = "__";
+	setlocale(LC_CTYPE, "");
+
+	wchar_t spr_wall[] = L"▒▒";
+	char spr_wall_sub[MB_CUR_MAX];
+	int spr_wall_len = wcstombs(spr_wall_sub, spr_wall, sizeof(spr_wall_sub));
+
+	wchar_t spr_block[] = L"▓▓";
+	char spr_block_sub[MB_CUR_MAX];
+	int spr_block_len =
+		wcstombs(spr_block_sub, spr_block, sizeof(spr_block_sub));
+
+	wchar_t spr_empty[] = L"░░";
+	char spr_empty_sub[MB_CUR_MAX];
+	int spr_empty_len =
+		wcstombs(spr_empty_sub, spr_empty, sizeof(spr_empty_sub));
 
 	write(STDIN_FILENO, "\033[2J", 4);
 	write(STDIN_FILENO, "\033[H", 4);
 
 	for (int k = 0; k < HEIGHT; ++k) {
-		write(STDIN_FILENO, spr_wall, strlen(spr_wall));
+		write(STDIN_FILENO, spr_wall_sub, spr_wall_len);
 
 		for (int i = 0; i < WIDTH; ++i) {
 			if ((i == block->x[0] && k == block->y[0]) ||
 				(i == block->x[1] && k == block->y[1]) ||
 				(i == block->x[2] && k == block->y[2]) ||
 				(i == block->x[3] && k == block->y[3]) || block->field[i][k]) {
-				write(STDIN_FILENO, spr_block, strlen(spr_block));
+				write(STDIN_FILENO, spr_block_sub, spr_block_len);
 			} else {
-				write(STDIN_FILENO, spr_empty, strlen(spr_empty));
+				write(STDIN_FILENO, spr_empty_sub, spr_empty_len);
 			}
 		}
 
-		write(STDIN_FILENO, spr_wall, strlen(spr_wall));
+		write(STDIN_FILENO, spr_wall_sub, spr_wall_len);
 		write(STDIN_FILENO, "\n", 1);
 	}
 }

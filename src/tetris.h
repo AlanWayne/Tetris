@@ -1,11 +1,13 @@
 #ifndef TETRIS_H
 #define TETRIS_H
 
+#include <locale.h>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <wchar.h>
 
 #include "block.h"
 
