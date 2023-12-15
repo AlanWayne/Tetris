@@ -37,9 +37,10 @@ void movement(int *action, Block *block) {
 void draw(Data *data, Block *block) {
 	setlocale(LC_CTYPE, "");
 
-	wchar_t spr_wall[] = L"▒▒";
-	char spr_wall_sub[MB_CUR_MAX];
-	int spr_wall_len = wcstombs(spr_wall_sub, spr_wall, sizeof(spr_wall_sub));
+	wchar_t spr_walls[] = L"▒▒";
+	char spr_walls_sub[MB_CUR_MAX];
+	int spr_walls_len =
+		wcstombs(spr_walls_sub, spr_walls, sizeof(spr_walls_sub));
 
 	wchar_t spr_block[] = L"▓▓";
 	char spr_block_sub[MB_CUR_MAX];
@@ -55,7 +56,7 @@ void draw(Data *data, Block *block) {
 	write(STDIN_FILENO, "\033[H", 4);
 
 	for (int k = 0; k < HEIGHT; ++k) {
-		write(STDIN_FILENO, spr_wall_sub, spr_wall_len);
+		write(STDIN_FILENO, spr_walls_sub, spr_walls_len);
 
 		for (int i = 0; i < WIDTH; ++i) {
 			if ((i == block->x[0] && k == block->y[0]) ||
@@ -68,7 +69,7 @@ void draw(Data *data, Block *block) {
 			}
 		}
 
-		write(STDIN_FILENO, spr_wall_sub, spr_wall_len);
+		write(STDIN_FILENO, spr_walls_sub, spr_walls_len);
 
 		if (k == 6 || k == 7) {
 			for (int i = WIDTH; i < WIDTH + 9; ++i) {
@@ -185,7 +186,7 @@ void tetris(Data *data) {
 
 		draw(data, &block);
 
-		usleep(FPS);
+		usleep(FPS - 100 * data->score);
 	}
 
 	if (game_over) {

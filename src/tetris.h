@@ -11,7 +11,7 @@
 
 #include "block.h"
 
-#define FPS 1000000 / 30
+#define FPS 30000
 
 void collision(Block *block);
 void movement(int *action, Block *block);
