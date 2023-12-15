@@ -6,8 +6,8 @@ Classic game with ascii graphic.
     <img src="./materials/images/gameplay_appearance.jpg" alt="part2_1" width="272"/><br>
 
     - Unicode:<br>
-    '▒▒░░░░░░░░░░░░░░░░░░░░▒▒'<br>
-    '▒▒░░░░░░░░░░░░░░░░░░░░▒▒'<br>
+    `▒▒░░░░░░░░░░░░░░░░░░░░▒▒`<br>
+    `▒▒░░░░░░░░░░░░░░░░░░░░▒▒`<br>
     ▒▒░░░░░░░░░░░░░░░░░░░░▒▒<br>
     ▒▒░░░░░░░░░░░░░░░░░░░░▒▒<br>
     ▒▒░░░░░░░░░░░░░░░░░░░░▒▒<br>
