@@ -464,7 +464,7 @@ void block_new(Block *block) {
 	}
 
 	for (int i = 0; i < 4; ++i) {
-		block->x_next[i] += WIDTH + 2;
+		block->x_next[i] += WIDTH - 2;
 		block->y_next[i] += 6;
 	}
 }

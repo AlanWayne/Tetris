@@ -71,15 +71,15 @@ void draw(Data *data, Block *block) {
 		write(STDIN_FILENO, spr_wall_sub, spr_wall_len);
 
 		if (k == 6 || k == 7) {
-			write(STDIN_FILENO, "  ", 2);
-		}
-
-		for (int i = 0; i < WIDTH; ++i) {
-			if ((i + 2 + WIDTH == block->x_next[0] && k == block->y_next[0]) ||
-				(i + 2 + WIDTH == block->x_next[1] && k == block->y_next[1]) ||
-				(i + 2 + WIDTH == block->x_next[2] && k == block->y_next[2]) ||
-				(i + 2 + WIDTH == block->x_next[3] && k == block->y_next[3])) {
-				write(STDIN_FILENO, spr_block_sub, spr_block_len);
+			for (int i = WIDTH; i < WIDTH + 9; ++i) {
+				if ((i == block->x_next[0] && k == block->y_next[0]) ||
+					(i == block->x_next[1] && k == block->y_next[1]) ||
+					(i == block->x_next[2] && k == block->y_next[2]) ||
+					(i == block->x_next[3] && k == block->y_next[3])) {
+					write(STDIN_FILENO, spr_block_sub, spr_block_len);
+				} else {
+					write(STDIN_FILENO, "  ", 2);
+				}
 			}
 		}
 
@@ -150,7 +150,7 @@ int check_game_over(Block *block) {
 	return 0;
 }
 
-void save_result(Data *data) {
+void print_game_over(Data *data) {
 	write(STDIN_FILENO, "\033[2J", 4);
 	write(STDIN_FILENO, "\033[H", 4);
 
@@ -189,6 +189,12 @@ void tetris(Data *data) {
 	}
 
 	if (game_over) {
-		save_result(data);
+		print_game_over(data);
 	}
+}
+
+void print(int value) {
+	char buffer[64];
+	sprintf(buffer, "%d\n", value);
+	write(STDIN_FILENO, buffer, strlen(buffer));
 }
