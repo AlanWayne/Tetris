@@ -12,6 +12,7 @@ typedef struct {
 	int state;
 
 	int field[10][20];
+	int game_over;
 } Block;
 
 typedef struct {

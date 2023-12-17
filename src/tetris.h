@@ -10,13 +10,15 @@
 #include <wchar.h>
 
 #include "block.h"
+#include "conf.h"
+#include "saving.h"
 
 #define FPS 30000
 
 void collision(Block *block);
 void movement(int *action, Block *block);
 void draw(Data *data, Block *block);
-void tetris(Data *data);
+void tetris();
 void print(int value);
 
 #endif
